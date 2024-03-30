@@ -2,23 +2,32 @@ module Wework
   module Api
     module Methods
       module Department
-        def department_create data={}
+        def department_create(data = {})
           post 'department/create', data
         end
 
-        def department_update department_id, data={}
+        def department_update(department_id, data = {})
           post 'department/update', data.merge(id: department_id)
         end
 
-        def department_delete department_id
-          get 'department/delete', params: {id: department_id}
+        def department_delete(department_id)
+          get 'department/delete', params: { id: department_id }
         end
 
-        def department_list department_id=nil
+        # @param [nil] department_id
+        def simple_list(department_id = nil)
+          if department_id.nil?
+            get 'department/simplelist', params: {}
+          else
+            get 'department/simplelist', params: { id: department_id }
+          end
+        end
+
+        def department_list(department_id = nil)
           if department_id.nil?
             get 'department/list'
           else
-            get 'department/list', params: {id: department_id}
+            get 'department/list', params: { id: department_id }
           end
         end
       end

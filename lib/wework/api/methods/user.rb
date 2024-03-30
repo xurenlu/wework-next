@@ -34,6 +34,9 @@ module Wework
           get 'user/list', params: {department_id: department_id, fetch_child: fetch_child}
         end
 
+        def user_list_id
+          get 'user/list_id',params:{limit:10000}
+        end
         def convert_to_openid userid
           post 'user/convert_to_openid', {userid: userid}
         end
@@ -41,6 +44,7 @@ module Wework
         def convert_to_userid openid
           post 'user/convert_to_userid', {openid: openid}
         end
+
 
         def authsucc userid
           get 'user/authsucc', params: {userid: userid}

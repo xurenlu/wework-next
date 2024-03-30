@@ -10,21 +10,28 @@ module Wework
       @base = base
       @httprb = HTTP.timeout(**Wework.http_timeout_options)
       @ssl_context = OpenSSL::SSL::SSLContext.new
-      @ssl_context.ssl_version = :TLSv1
+      @ssl_context.ssl_version = :TLSv1_2
       @ssl_context.verify_mode = OpenSSL::SSL::VERIFY_NONE if skip_verify_ssl
     end
 
     def get(path, get_header = {})
       request(path, get_header) do |url, header|
         params = header.delete(:params)
-        httprb.headers(header).get(url, params: params, ssl_context: ssl_context)
+        puts "header:#{header.to_json}"
+        puts "params:#{params.to_json}"
+        puts "url:#{url}"
+        RestClient.get url,{params:params}
+        #httprb.headers(header).get(url, params: params, ssl_context: ssl_context)
       end
     end
+
+
 
     def post(path, post_body, post_header = {})
       request(path, post_header) do |url, header|
         params = header.delete(:params)
-        httprb.headers(header).post(url, params: params, json: post_body, ssl_context: ssl_context)
+        RestClient.post url, post_body, {params:params}
+        #httprb.headers(header).post(url, params: params, json: post_body, ssl_context: ssl_context)
       end
     end
 
@@ -47,7 +54,7 @@ module Wework
       header['Accept'] = 'application/json'
       dup_header = header.dup
       response = yield("#{url_base}#{path}", header)
-      raise ResponseError.new(response.status) unless HTTP_OK_STATUS.include?(response.status)
+      raise ResponseError.new(response.code) unless HTTP_OK_STATUS.include?(response.code)
 
       parse_response(response, as || :json) do |parse_as, data|
         break data unless parse_as == :json

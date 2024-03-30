@@ -1,5 +1,20 @@
 require 'wework/request'
-
+require 'wework/api/methods/media'
+require 'wework/api/methods/user'
+require 'wework/api/methods/agent'
+require 'wework/api/methods/department'
+require 'wework/api/methods/tag'
+require 'wework/api/methods/crm'
+require 'wework/api/methods/menu'
+require 'wework/api/methods/checkin'
+require 'wework/api/methods/message'
+require 'wework/api/methods/service'
+require 'wework/api/methods/provider'
+require 'wework/api/methods/batch'
+require 'wework/api/methods/approval'
+require 'wework/api/methods/appchat'
+require 'wework/token/base'
+require 'wework/token/app_token'
 module Wework
   module Api
     class Base
@@ -21,7 +36,7 @@ module Wework
       end
 
       def request
-        @request ||= Wework::Request.new(API_ENDPOINT, false)
+        @request ||= Wework::Request.new(API_ENDPOINT, true)
       end
 
       def valid?
