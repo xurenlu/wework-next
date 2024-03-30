@@ -6,8 +6,8 @@ require 'wework/version'
 Gem::Specification.new do |spec|
   spec.name          = "wework-next"
   spec.version       = Wework::VERSION
-  spec.authors       = ["seandong"]
-  spec.email         = ["sindon@gmail.com"]
+  spec.authors       = ["rocky"]
+  spec.email         = ["xurenlu@gmail.com"]
 
   spec.summary       = spec.description = %q{Ruby API wrapper for wechat work「企业微信」}
   spec.homepage      = "https://github.com/xurenlu/wework-next"
